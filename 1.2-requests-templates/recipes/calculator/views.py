@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from pathlib import Path
 
 DATA = {
     'omlet': {
@@ -28,3 +30,17 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+def home(request):
+    return HttpResponse("Посмотрите на наши рецепты! <br/>Для этого введите в адресной строке блюда (omlet, pasta, buter). <br/>Если нужно больше одной порции, то добавьте количество servings")
+    
+
+def index(request):
+    servings = int(request.GET.get("servings", 1))
+    path_var = str(Path(request.path))[1:]
+    context = {
+               "recipe": DATA[path_var],
+               "servings": servings,
+               "path_var": path_var
+               }
+    return render(request, 'calculator/index.html', context)
