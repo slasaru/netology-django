@@ -1,4 +1,3 @@
-{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,15 +6,17 @@
 </head>
 <body>
 
-<h1>Рецепт для блюда: {{ path_var }}</h1>
+<h1>Рецепт для блюда: {{ dish }}</h1>
 <h2>Количество порций: {{ servings }}</h2>
 
 {% for ingredient, amount in recipe.items %}
-    <p>{{ ingredient }}: {{ amount|mul:servings|floatformat:2 }}</p>
+    <p>{{ ingredient }}: {{ amount|floatformat:2 }}</p>
 
-{% empty %}
+
+    {% empty %}
     <p>Такого рецепта не знаю :(</p>
 {% endfor %}
+
 
 </body>
 </html>
